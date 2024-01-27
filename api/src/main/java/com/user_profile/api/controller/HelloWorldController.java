@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user-profile")
+@RequestMapping("/api")
 public class HelloWorldController {
 
     @GetMapping("/alive")
