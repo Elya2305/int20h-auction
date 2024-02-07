@@ -4,7 +4,7 @@ RUN mkdir /source
 WORKDIR /source
 COPY . /source
 
-RUN ./gradlew --no-daemon bootJar && cp build/libs/user-profile.jar ./service.jar
+RUN ./gradlew --no-daemon bootJar && cp build/libs/int20h-auction.jar ./service.jar
 RUN rm -rf /root/.gradle
 
 EXPOSE 8080
