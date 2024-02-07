@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build and push the image
         run: |
-          docker login --username Elya2305 --password ${{ secrets.GH_PAT }}
+          docker login --username Elya2305 --password ${{ secrets.GH_PAT }} ghcr.io
           docker build . --tag ghcr.io/Elya2305/int20h-auction:latest
           docker push ghcr.io/Elya2305/int20h-auction:latest
