@@ -1,4 +1,4 @@
-package com.user_profile.api.controller;
+package int20h.auction.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class HelloWorldController {
+public class AliveController {
 
     @GetMapping("/alive")
     public boolean isAlive() {

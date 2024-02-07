@@ -1,13 +1,13 @@
-package com.user_profile.api;
+package int20h.auction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserProfileApiApplication {
+public class AuctionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserProfileApiApplication.class, args);
+		SpringApplication.run(AuctionApplication.class, args);
 	}
 
 }
