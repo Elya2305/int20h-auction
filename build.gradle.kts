@@ -4,7 +4,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 }
 
-group = "com.user_profile.api"
+group = "int20h.auction"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
