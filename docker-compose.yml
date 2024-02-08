@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.1
+    environment:
+      POSTGRES_DB: "auction"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
