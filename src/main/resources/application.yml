@@ -10,3 +10,6 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+google:
+  client-id: ${GOOGLE_CLIENT_ID}

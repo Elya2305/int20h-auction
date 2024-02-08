@@ -6,3 +6,6 @@ spring:
     password: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+google:
+  client-id: test

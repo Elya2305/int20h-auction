@@ -12,4 +12,9 @@ public class AliveController {
     public boolean isAlive() {
         return true;
     }
+
+    @GetMapping("/restricted")
+    public boolean isRestricted() {
+        return true;
+    }
 }
