@@ -28,7 +28,7 @@ public class IdTokenVerificationFilter extends OncePerRequestFilter {
     private final UserService userService;
     private final HandlerExceptionResolver exceptionResolver;
 
-    private final Set<String> ignoreURLs = Set.of("/api/alive");
+    private final Set<String> ignoreURLs = Set.of("/v1/alive");
 
     public IdTokenVerificationFilter(GoogleIdTokenVerifier verifier, UserService userService, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver) {
         this.verifier = verifier;
