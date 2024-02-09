@@ -3,48 +3,58 @@ package int20h.auction.service;
 import int20h.auction.auth.context.UserContext;
 import int20h.auction.domain.LotRequest;
 import int20h.auction.entitiy.Lot;
-import int20h.auction.entitiy.User;
+import int20h.auction.exception.custom.AuthenticationException;
+import int20h.auction.exception.custom.EntityNotFoundException;
 import int20h.auction.mapper.LotMapper;
 import int20h.auction.repository.LotRepository;
-import int20h.auction.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class LotService {
-    private final UserRepository userRepository;
     private final LotRepository lotRepository;
     private final LotMapper mapper;
 
     public Lot create(LotRequest request) {
-        User user = userRepository.getReferenceById(UserContext.getUserUuid());
-        Lot lot = mapper.mapLotRequestToLotWithUser(request, user);
+        Lot lot = mapper.mapToEntity(request);
         return lotRepository.save(lot);
     }
 
     public Lot getById(String id) {
-        return lotRepository.getReferenceById(id);
+        Lot lot = lotRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Lot with id %s does not exist".formatted(id)));
+        validateAuthorized(lot, "lot::get");
+        return lot;
     }
 
-    public Lot cancelLot(String id) {
-        Lot lot = lotRepository.getReferenceById(id);
+    public Lot cancel(String id) {
+        Lot lot = getById(id);
+        validateAuthorized(lot, "lot::cancel");
         lot.setStatus(Lot.LotStatus.CANCELED);
-        lotRepository.save(lot);
-
-        return lot;
+        return lotRepository.save(lot);
     }
 
-    public Lot updateLot(LotRequest request, String id) {
-        Lot lot = lotRepository.getReferenceById(id);
+    public Lot update(LotRequest request, String id) {
+        Lot lot = getById(id);
+        validateAuthorized(lot, "lot::update");
 
-        lot.setTitle(request.getTitle());
-        lot.setDescription(request.getDescription());
-        lot.setPrice(request.getPrice());
-        lot.setCloseTime(request.getCloseTime());
+        lot.setTitle(getOrDefault(request.getTitle(), lot.getTitle()));
+        lot.setDescription(getOrDefault(request.getDescription(), lot.getDescription()));
+        lot.setPrice(getOrDefault(request.getPrice(), lot.getPrice()));
+        lot.setCloseTime(getOrDefault(request.getCloseTime(), lot.getCloseTime()));
 
-        lotRepository.save(lot);
+        return lotRepository.save(lot);
+    }
 
-        return lot;
+    private void validateAuthorized(Lot lot, String action) {
+        if (!lot.getOwner().getId().equals(UserContext.getUserId())) {
+            throw new AuthenticationException("User is not authorized to perform " + action);
+        }
+    }
+
+    private <T> T getOrDefault(T val, T def) {
+        return (Objects.isNull(val)) ? def : val;
     }
 }
