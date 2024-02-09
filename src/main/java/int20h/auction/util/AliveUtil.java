@@ -18,7 +18,7 @@ public class AliveUtil {
     @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.SECONDS)
     public void aliveScheduler() {
         webClient.get()
-                .uri("/api/alive")
+                .uri("/v1/alive")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
