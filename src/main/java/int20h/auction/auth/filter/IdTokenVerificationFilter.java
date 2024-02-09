@@ -41,7 +41,7 @@ public class IdTokenVerificationFilter extends OncePerRequestFilter {
         try {
             doFilter(request);
             filterChain.doFilter(request, response);
-            UserContext.removeUserUuid();
+            UserContext.removeUserId();
         } catch (Exception exc) {
             exceptionResolver.resolveException(request, response, null, exc);
         }
@@ -58,7 +58,7 @@ public class IdTokenVerificationFilter extends OncePerRequestFilter {
             throw new AuthenticationException("Id token is missing");
         }
         if (idTokenValue.equals("root1token")) { // for testing purposes
-            UserContext.setUserUuid("1");
+            UserContext.setUserId("1");
             return;
         }
 
@@ -74,6 +74,6 @@ public class IdTokenVerificationFilter extends OncePerRequestFilter {
 
         GoogleIdToken.Payload payload = idToken.getPayload();
         String userUuid = userService.createOrUpdate(new SocialUser(payload.getSubject()));
-        UserContext.setUserUuid(userUuid);
+        UserContext.setUserId(userUuid);
     }
 }

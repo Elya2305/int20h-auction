@@ -4,17 +4,17 @@ import lombok.Data;
 
 @Data
 public class UserContext {
-    private static ThreadLocal<String> userUuid = new ThreadLocal<>();
+    private static ThreadLocal<String> userId = new ThreadLocal<>();
 
-    public static void setUserUuid(String userUuid) {
-        UserContext.userUuid.set(userUuid);
+    public static void setUserId(String userId) {
+        UserContext.userId.set(userId);
     }
 
-    public static void removeUserUuid() {
-        UserContext.userUuid.remove();
+    public static void removeUserId() {
+        UserContext.userId.remove();
     }
 
-    public static String getUserUuid() {
-        return UserContext.userUuid.get();
+    public static String getUserId() {
+        return UserContext.userId.get();
     }
 }
