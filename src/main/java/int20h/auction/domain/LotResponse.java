@@ -14,6 +14,7 @@ public class LotResponse {
     private String description;
     private Long price;
     private Instant closeTime;
+    private String image;
     private Lot.LotStatus status;
     private String ownerId;
     private Instant createdAt;

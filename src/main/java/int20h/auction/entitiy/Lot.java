@@ -35,6 +35,8 @@ public class Lot {
     private Long price;
     @Column(name = "close_time", columnDefinition = "timestamp")
     private Instant closeTime;
+    @Column(name = "image", columnDefinition = "text")
+    private String image;
     @Column(name = "status", columnDefinition = "varchar(100)")
     @Enumerated(EnumType.STRING)
     private LotStatus status;

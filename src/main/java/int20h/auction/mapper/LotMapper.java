@@ -27,6 +27,7 @@ public class LotMapper {
                 .closeTime(lot.getCloseTime())
                 .status(lot.getStatus())
                 .ownerId(lot.getOwner().getId())
+                .image(lot.getImage())
                 .createdAt(lot.getCreatedAt())
                 .build();
     }
@@ -40,6 +41,7 @@ public class LotMapper {
                 .closeTime(request.getCloseTime())
                 .owner(userRepository.getReferenceById(UserContext.getUserId()))
                 .status(OPEN)
+                .image(request.getImage())
                 .createdAt(now())
                 .build();
     }

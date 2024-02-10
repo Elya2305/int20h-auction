@@ -11,5 +11,6 @@ public class LotRequest {
     private String title;
     private String description;
     private Long price;
+    private String image;
     private Instant closeTime;
 }
