@@ -11,7 +11,7 @@ public class BidResponse {
     private String id;
     private String lotId;
     private Long price;
-    private String userName;
+    private String username;
     private boolean isBest;
     private Instant createdAt;
 }

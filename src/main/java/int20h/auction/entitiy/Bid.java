@@ -18,13 +18,13 @@ public class Bid {
     @Id
     private String id;
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    @Column(name = "lot_id")
+    @JoinColumn(name = "lot_id", nullable = false)
     private Lot lot;
     @Column(name = "price", columnDefinition = "bigint")
     private Long price;
-    @Column(name = "user_name")
-    private String userName;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
     @Column(name = "is_best")
     private boolean isBest;
     @Column(name = "created_at", columnDefinition = "timestamp")
