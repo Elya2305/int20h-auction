@@ -7,9 +7,13 @@ import int20h.auction.exception.custom.AuthenticationException;
 import int20h.auction.exception.custom.EntityNotFoundException;
 import int20h.auction.mapper.LotMapper;
 import int20h.auction.repository.LotRepository;
+import int20h.auction.util.filtering.FilterRule;
+import int20h.auction.util.filtering.FilterSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -29,6 +33,11 @@ public class LotService {
         return lot;
     }
 
+    public List<Lot> getAll(List<FilterRule> filterRules, Sort sort) {
+        FilterSpecification<Lot> specification = new FilterSpecification<>(filterRules);
+        return lotRepository.findAll(specification, sort);
+    }
+
     public Lot cancel(String id) {
         Lot lot = getById(id);
         validateAuthorized(lot, "lot::cancel");
@@ -42,7 +51,6 @@ public class LotService {
 
         lot.setTitle(getOrDefault(request.getTitle(), lot.getTitle()));
         lot.setDescription(getOrDefault(request.getDescription(), lot.getDescription()));
-        lot.setPrice(getOrDefault(request.getPrice(), lot.getPrice()));
         lot.setCloseTime(getOrDefault(request.getCloseTime(), lot.getCloseTime()));
 
         return lotRepository.save(lot);

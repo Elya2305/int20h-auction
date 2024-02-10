@@ -8,6 +8,7 @@ import int20h.auction.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 import static int20h.auction.entitiy.Lot.LotStatus.OPEN;
@@ -32,12 +33,15 @@ public class LotMapper {
                 .build();
     }
 
+    public List<LotResponse> mapToResponse(List<Lot> lot) {
+        return lot.stream().map(this::mapToResponse).toList();
+    }
+
     public Lot mapToEntity(LotRequest request) {
         return Lot.builder()
                 .id(UUID.randomUUID().toString())
                 .title(request.getTitle())
                 .description(request.getDescription())
-                .price(request.getPrice())
                 .closeTime(request.getCloseTime())
                 .owner(userRepository.getReferenceById(UserContext.getUserId()))
                 .status(OPEN)
